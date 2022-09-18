@@ -15,13 +15,16 @@ void Init(); //초기설정
 void Starting_Logo_Disp(); //시작화면
 void Loop_Hdmi_State();
 void remove_scrollbar();
+void Port_Status_Trasfrom_to_Char();
 
-char Ver[] = "B.1.1";
-char State_Data[9];
-char Disp_Nums[9] = {"NNNNNNNN"};
+char Ver[] = "B.1.2";
+char State_Data[18];
+char Disp_Nums[18] = {"NNNNNNNN"};
+char Disp_Port[18] = {""};
 
 int main(void) {
 	Init();
+	Port_Status_Trasfrom_to_Char();
     Starting_Logo_Disp();
    	system("cls");
    	Loop_Hdmi_State();
@@ -41,7 +44,7 @@ void Init() {
 	char State_Data_AF[9] = {"NNNNNNNN"};
 	FILE *State_Save;
 	if (State_Save = fopen("State_Save.txt", "r")) {
-		fgets(Disp_Nums, 9, State_Save);
+		fgets(Disp_Nums, 18, State_Save);
 	}
 	else {
 		State_Save = fopen("State_Save.txt", "w");
@@ -57,13 +60,27 @@ void exit_fn() {
 	exit(0);
 }
 
-void Loop_Hdmi_State() {
+void Port_Status_Trasfrom_to_Char() { 
 	int i;
+	for (i = 0; i < 8; i++) {
+		printf("%c", Disp_Nums[i]);
+ 		if (Disp_Nums == 'N'') {
+ 			Disp_Port[i] = '0';
+		 }
+		 else {
+		 	Disp_Port[i] = 'O';
+		 }
+	}
+}
+
+void Loop_Hdmi_State() {
 	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
     printf("■                                                                                                                  ■\n");
-    printf("■            O          %c          %c          %c          %c          %c          %c          %c          %c         %c    ■\n",Disp_Nums[0],Disp_Nums[1],Disp_Nums[2],Disp_Nums[3],Disp_Nums[4],Disp_Nums[5],Disp_Nums[6],Disp_Nums[7]);
+    printf("■           Out         %c          %c          %c          %c          %c          %c          %c          %c             ■\n",
+	Disp_Nums[0],Disp_Nums[1],Disp_Nums[2],Disp_Nums[3],Disp_Nums[4],Disp_Nums[5],Disp_Nums[6],Disp_Nums[7]);
     printf("■                                                                                                                  ■\n");
-    printf("■           ○         ○         ○         ○         ○         ○         ○         ○         ○             ■\n");
+    printf("■            O          %c          %c          %c          %c          %c          %c          %c          %c             ■\n",
+	Disp_Port[0],Disp_Port[1],Disp_Port[2],Disp_Port[3],Disp_Port[4],Disp_Port[5],Disp_Port[6],Disp_Port[7]);
     printf("■                                                                                                                  ■\n");
     printf("■                                                                                                                  ■\n");
     printf("■                                                                                                                  ■\n");
