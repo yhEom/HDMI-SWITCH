@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <conio.h>
 #include <windows.h>
@@ -13,34 +14,32 @@
 
 void Init(); //초기설정
 void Starting_Logo_Disp(); //시작화면
-void Disp_State(unsigned char Connect_nums); //화면 출력
-char Connect_State(); //연결 인식
 
-char nums [8];
+char State_Data;
 
 int main(void) {
-    Init();
+	Init();
     Starting_Logo_Disp();
     while (1) {
-        //HDMI_State(Connect_State());
     }
     return 0;
 }
 
 void Init() {
-
-}
-
-void HDMI_State(char Connect_nums) {
-
-}
-
-char Connect_State() {
-     
-    return 'a';
+	char State_Data_AF = '0';
+	FILE *State_Save;
+	if (State_Save = fopen("State_Save", "r")) {
+		State_Data = fgetc(State_Save);
+	}
+	else {
+		State_Save = fopen("State_Save", "w");
+		fputc(State_Data_AF, State_Save);		
+	}
+	fclose(State_Save);
 }
 
 void Starting_Logo_Disp() {
+	
     int Press_Enter = 0;
     printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
     printf("■                                                                                                                  ■\n");
