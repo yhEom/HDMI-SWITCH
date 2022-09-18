@@ -1,9 +1,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <conio.h>
+#include <string.h>
 #include <windows.h>
-
-// HDMI SWITCH B.1.0
 
 /*
 조건
@@ -14,28 +13,64 @@
 
 void Init(); //초기설정
 void Starting_Logo_Disp(); //시작화면
+void Loop_Hdmi_State();
+void remove_scrollbar();
 
-char State_Data;
+char Ver[] = "B.1.1";
+char State_Data[9];
+char Disp_Nums[9] = {"NNNNNNNN"};
 
 int main(void) {
 	Init();
     Starting_Logo_Disp();
-    while (1) {
-    }
+   	system("cls");
+   	Loop_Hdmi_State();
+   	while (1) {
+   		int key = _getch();
+   		printf("%d", key);
+	    if (key == 48) {
+		 	exit_fn();
+		 	break;
+  		} 
+	}
     return 0;
 }
 
 void Init() {
-	char State_Data_AF = '0';
+	remove_scrollbar();
+	char State_Data_AF[9] = {"NNNNNNNN"};
 	FILE *State_Save;
-	if (State_Save = fopen("State_Save", "r")) {
-		State_Data = fgetc(State_Save);
+	if (State_Save = fopen("State_Save.txt", "r")) {
+		fgets(Disp_Nums, 9, State_Save);
 	}
 	else {
-		State_Save = fopen("State_Save", "w");
-		fputc(State_Data_AF, State_Save);		
+		State_Save = fopen("State_Save.txt", "w");
+		fprintf(State_Save, Disp_Nums);		
 	}
 	fclose(State_Save);
+}
+
+void exit_fn() {
+	FILE *State_Save;
+	State_Save = fopen("State_Save.txt", "w");
+	fprintf(State_Save, Disp_Nums);
+	exit(0);
+}
+
+void Loop_Hdmi_State() {
+	int i;
+	printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
+    printf("■                                                                                                                  ■\n");
+    printf("■            O          %c          %c          %c          %c          %c          %c          %c          %c         %c    ■\n",Disp_Nums[0],Disp_Nums[1],Disp_Nums[2],Disp_Nums[3],Disp_Nums[4],Disp_Nums[5],Disp_Nums[6],Disp_Nums[7]);
+    printf("■                                                                                                                  ■\n");
+    printf("■           ○         ○         ○         ○         ○         ○         ○         ○         ○             ■\n");
+    printf("■                                                                                                                  ■\n");
+    printf("■                                                                                                                  ■\n");
+    printf("■                                                                                                                  ■\n");
+    printf("■                                                                                                                  ■\n");
+    printf("■                                                                                                                  ■\n");
+    printf("■    Help : 9 | Exit : 0                                                                            Ver : %s    ■\n", Ver);
+    printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
 }
 
 void Starting_Logo_Disp() {
@@ -51,13 +86,21 @@ void Starting_Logo_Disp() {
     printf("■ ■    ■ ■    ■   ■      ■     ■          ■      ■ ■  ■  ■     ■         ■     ■      ■ ■      ■ ■\n");
     printf("■ ■    ■ ■■■     ■      ■ ■■■■■        ■■■     ■  ■   ■■■■■     ■       ■■■   ■      ■ ■\n");
     printf("■                                                                                                                  ■\n");
-    printf("■ Press Enter...                                                                                    Ver : B.1.0    ■\n");
+    printf("■ Press Enter...                                                                                    Ver : %s    ■\n", Ver);
     printf("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■\n");
-    while (Press_Enter == 0) {
-        char c = _getch();
-        if (c == 13) {
+    while (1) {
+        int key = _getch();
+        if (key == 13) {
             system("cls");
             break;
         }
     }
+}
+
+void remove_scrollbar() {
+	 HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	 CONSOLE_SCREEN_BUFFER_INFO info;
+	 GetConsoleScreenBufferInfo(handle, &info);
+	 COORD new_size = {info.srWindow.Right - info.srWindow.Left + 1,info.srWindow.Bottom - info.srWindow.Top + 1};
+	 SetConsoleScreenBufferSize(handle, new_size);
 }
