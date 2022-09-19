@@ -151,14 +151,14 @@ void exit_fn() {
 
 void Help_page() {
 	printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á\n");
-	printf("¡á   WIP                                                                                                            ¡á\n");
-	printf("¡á                                                                                                                  ¡á\n");
-	printf("¡á                                                                                                                  ¡á\n");
-	printf("¡á                                                                                                                  ¡á\n");
-	printf("¡á                                                                                                                  ¡á\n");
-	printf("¡á                                                                                                                  ¡á\n");
-	printf("¡á                                                                                                                  ¡á\n");
-	printf("¡á                                                                                                                  ¡á\n");
+	printf("¡á   1. Select the number of the port you want to connect.                                                          ¡á\n");
+	printf("¡á   2. Press the selected number to connect.                                                                       ¡á\n");
+	printf("¡á   3. Among the connected ports, the most recently connected port is automatically selected.                      ¡á\n");
+	printf("¡á   4. After selecting the tab, select the port you want to output to and fix the output.                          ¡á\n");
+	printf("¡á   5. The selected port is fixed and does not change until removed.                                               ¡á\n");
+	printf("¡á   6. If you remove the selected port, it will automatically connect to the most recently connected port.         ¡á\n");
+	printf("¡á   7. If no connection is made, it is automatically selected as Port No.1.                                        ¡á\n");
+	printf("¡á   8. Press 0 to save state when exiting.                                                                         ¡á\n");
 	printf("¡á                                                                                                                  ¡á\n");
 	printf("¡á    Return : Enter                                                                                 Ver : %s    ¡á\n", Ver);
 	printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á\n");
