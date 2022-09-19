@@ -26,7 +26,8 @@ char State_Data_AF[9] = {"NNNNNNNN"};
 char Disp_Port[9] = {""};
 char Disp_Nums_Sequence[9];
 
-int Highs_Num = 0;
+int Highst_Num = 0;
+int Highst_Num_Order = 0;
 
 int main(void) {
 	Init();
@@ -61,13 +62,29 @@ void Select_Port() {
 }
 
 void Control_Status(int Num) {
-	if (Disp_Port[Num-1] != 'X') {
-		Disp_Port[Num-1] = 'X';
+	Num = Num - 1;
+	if (Highst_Num == Disp_Nums[Num] - 48) {
+		Disp_Nums[Num] = 'N';
 	}
 	else {
-		Disp_Port[Num-1] = 'O';
 	}
+	Port_Status_Trasfrom_to_Char();
 	Loop();
+}
+
+void Port_Status_Trasfrom_to_Char() { 
+	int i;
+	Highst_Num = 0;
+	for (i = 0; i < 8; i++) {
+ 		if (Disp_Nums[i] == 'N') {Disp_Port[i] = 'X';}
+	    else {Disp_Port[i] = 'O'; 
+			 if (Highst_Num < Disp_Nums[i] - 48) {
+			 	Highst_Num = Disp_Nums[i] - 48;
+			 	Highst_Num_Order = i;
+			 }
+		 }
+	}
+	Disp_Port[Highst_Num_Order] = '@';
 }
 
 void Init() {
@@ -88,19 +105,6 @@ void exit_fn() {
 	State_Save = fopen("State_Save.txt", "w");
 	fprintf(State_Save, Disp_Nums);
 	exit(0);
-}
-
-void Port_Status_Trasfrom_to_Char() { 
-	int i;
-	for (i = 0; i < 8; i++) {
- 		if (Disp_Nums[i] == 'N') {Disp_Port[i] = 'X';}
-	    else {Disp_Port[i] = 'O'; 
-			 if (Highs_Num < Disp_Nums[i] - 48) {
-			 	Highs_Num = Disp_Nums[i] - 48;
-			 	printf(Highs_Num);
-			 }
-		 }
-	}
 }
 
 void Help_page() {
@@ -128,14 +132,14 @@ void Help_page() {
 
 void Loop_Hdmi_State() {
 	printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á\n");
+	printf("¡á                                                                                                                  ¡á\n");
+	printf("¡á           Out         1          2          3          4          5          6          7          8             ¡á\n");
     printf("¡á                                                                                                                  ¡á\n");
-    printf("¡á           Out         %c          %c          %c          %c          %c          %c          %c          %c             ¡á\n",
+    printf("¡á                       %c          %c          %c          %c          %c          %c          %c          %c             ¡á\n",
 	Disp_Nums[0],Disp_Nums[1],Disp_Nums[2],Disp_Nums[3],Disp_Nums[4],Disp_Nums[5],Disp_Nums[6],Disp_Nums[7]);
     printf("¡á                                                                                                                  ¡á\n");
     printf("¡á            O          %c          %c          %c          %c          %c          %c          %c          %c             ¡á\n",
 	Disp_Port[0],Disp_Port[1],Disp_Port[2],Disp_Port[3],Disp_Port[4],Disp_Port[5],Disp_Port[6],Disp_Port[7]);
-    printf("¡á                                                                                                                  ¡á\n");
-    printf("¡á                                                                                                                  ¡á\n");
     printf("¡á                                                                                                                  ¡á\n");
     printf("¡á                                                                                                                  ¡á\n");
     printf("¡á                                                                                                                  ¡á\n");
