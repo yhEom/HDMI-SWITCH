@@ -19,7 +19,7 @@ void Port_Status_Trasfrom_to_Char();
 void Control_Status();
 void Loop();
 
-char Ver[] = "B.2.0";
+char Ver[] = "B.2.5";
 char State_Data[9];
 char Disp_Nums[9] = {"NNNNNNNN"};
 char State_Data_AF[9] = {"NNNNNNNN"};
@@ -43,7 +43,7 @@ void Loop() {
    	while (1) {
    		int key = _getch();
    		printf("%d", key);
-   		if (key == 9) {Select_Port();break;}
+   		if (key == 9) {system("cls");Select_Port();break;}
    		if (key == 49) {system("cls");Control_Status(1);break;} //1
    		if (key == 50) {system("cls");Control_Status(2);break;} //2
    		if (key == 51) {system("cls");Control_Status(3);break;} //3
@@ -58,15 +58,22 @@ void Loop() {
 }
 
 void Select_Port() {
-	int a = 0;
 }
 
 void Control_Status(int Num) {
+	int Pre_Num = 0, i , j;
 	Num = Num - 1;
-	if (Highst_Num == Disp_Nums[Num] - 48) {
-		Disp_Nums[Num] = 'N';
+	if (Disp_Nums[Num] != 'N') {
+		Pre_Num = Disp_Nums[Num] - 48;
+	    Disp_Nums[Num] = 'N';
+	    for (i = 0; i < 8; i++) {
+	    	if (Pre_Num < Disp_Nums[i] - 48 && Disp_Nums[i] != 'N') {
+	    	   Disp_Nums[i] = Disp_Nums[i] - 1;
+  	   	    }
+		}
 	}
 	else {
+		Disp_Nums[Num] = Highst_Num + 1 + 48;
 	}
 	Port_Status_Trasfrom_to_Char();
 	Loop();
@@ -77,14 +84,15 @@ void Port_Status_Trasfrom_to_Char() {
 	Highst_Num = 0;
 	for (i = 0; i < 8; i++) {
  		if (Disp_Nums[i] == 'N') {Disp_Port[i] = 'X';}
-	    else {Disp_Port[i] = 'O'; 
-			 if (Highst_Num < Disp_Nums[i] - 48) {
-			 	Highst_Num = Disp_Nums[i] - 48;
-			 	Highst_Num_Order = i;
-			 }
-		 }
+	    else {Disp_Port[i] = 'O';}
+        if (Highst_Num < Disp_Nums[i] - 48 && Disp_Nums[i] != 'N') {
+	       Highst_Num = Disp_Nums[i] - 48;
+		   Highst_Num_Order = i;
+        }
 	}
-	Disp_Port[Highst_Num_Order] = '@';
+	if (Highst_Num != 0 && Disp_Nums[Highst_Num_Order] != 'N') {
+		Disp_Port[Highst_Num_Order] = '@';
+	}
 }
 
 void Init() {
@@ -129,6 +137,24 @@ void Help_page() {
         }
 	}
 }
+
+void Select_Port_Display() {
+    printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á\n");
+	printf("¡á                                                                                                                  ¡á\n");
+	printf("¡á           Out         1          2          3          4          5          6          7          8             ¡á\n");
+    printf("¡á                                                                                                                  ¡á\n");
+    printf("¡á                       %c          %c          %c          %c          %c          %c          %c          %c             ¡á\n",
+	Disp_Nums[0],Disp_Nums[1],Disp_Nums[2],Disp_Nums[3],Disp_Nums[4],Disp_Nums[5],Disp_Nums[6],Disp_Nums[7]);
+    printf("¡á                                                                                                                  ¡á\n");
+    printf("¡á            O          %c          %c          %c          %c          %c          %c          %c          %c             ¡á\n",
+	Disp_Port[0],Disp_Port[1],Disp_Port[2],Disp_Port[3],Disp_Port[4],Disp_Port[5],Disp_Port[6],Disp_Port[7]);
+    printf("¡á                                                                                                                  ¡á\n");
+    printf("¡á                                                                                                                  ¡á\n");
+    printf("¡á                                                                                                                  ¡á\n");
+    printf("¡á    Enter the number you want to display...                                                        Ver : %s    ¡á\n", Ver);
+    printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á\n");
+}
+
 
 void Loop_Hdmi_State() {
 	printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á\n");
