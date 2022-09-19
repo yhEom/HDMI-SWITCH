@@ -16,13 +16,17 @@ void Starting_Logo_Disp(); //시작화면
 void Loop_Hdmi_State();
 void remove_scrollbar();
 void Port_Status_Trasfrom_to_Char();
+void Control_Status();
 void Loop();
 
-char Ver[] = "B.1.3";
+char Ver[] = "B.2.0";
 char State_Data[9];
 char Disp_Nums[9] = {"NNNNNNNN"};
 char State_Data_AF[9] = {"NNNNNNNN"};
 char Disp_Port[9] = {""};
+char Disp_Nums_Sequence[9];
+
+int Highs_Num = 0;
 
 int main(void) {
 	Init();
@@ -38,9 +42,32 @@ void Loop() {
    	while (1) {
    		int key = _getch();
    		printf("%d", key);
-	    if (key == 48) {exit_fn();break;}
-	    if (key == 57) {system("cls");Help_page();break;}
+   		if (key == 9) {Select_Port();break;}
+   		if (key == 49) {system("cls");Control_Status(1);break;} //1
+   		if (key == 50) {system("cls");Control_Status(2);break;} //2
+   		if (key == 51) {system("cls");Control_Status(3);break;} //3
+   		if (key == 52) {system("cls");Control_Status(4);break;} //4
+   		if (key == 53) {system("cls");Control_Status(5);break;} //5
+   		if (key == 54) {system("cls");Control_Status(6);break;} //6
+   		if (key == 55) {system("cls");Control_Status(7);break;} //7
+   		if (key == 56) {system("cls");Control_Status(8);break;} //8
+   		if (key == 57) {system("cls");Help_page();break;} //9
+	    if (key == 48) {exit_fn();break;} //0
 	}
+}
+
+void Select_Port() {
+	int a = 0;
+}
+
+void Control_Status(int Num) {
+	if (Disp_Port[Num-1] != 'X') {
+		Disp_Port[Num-1] = 'X';
+	}
+	else {
+		Disp_Port[Num-1] = 'O';
+	}
+	Loop();
 }
 
 void Init() {
@@ -67,7 +94,12 @@ void Port_Status_Trasfrom_to_Char() {
 	int i;
 	for (i = 0; i < 8; i++) {
  		if (Disp_Nums[i] == 'N') {Disp_Port[i] = 'X';}
-	    else {Disp_Port[i] = 'O';}
+	    else {Disp_Port[i] = 'O'; 
+			 if (Highs_Num < Disp_Nums[i] - 48) {
+			 	Highs_Num = Disp_Nums[i] - 48;
+			 	printf(Highs_Num);
+			 }
+		 }
 	}
 }
 
