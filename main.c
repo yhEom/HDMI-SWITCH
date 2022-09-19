@@ -19,7 +19,7 @@ void Port_Status_Trasfrom_to_Char();
 void Control_Status();
 void Loop();
 
-char Ver[] = "B.2.5";
+char Ver[] = "A.1.0";
 char State_Data[9];
 char Disp_Nums[9] = {"NNNNNNNN"};
 char State_Data_AF[9] = {"NNNNNNNN"};
@@ -28,6 +28,7 @@ char Disp_Nums_Sequence[9];
 
 int Highst_Num = 0;
 int Highst_Num_Order = 0;
+int Slecte_Num = 10;
 
 int main(void) {
 	Init();
@@ -58,11 +59,36 @@ void Loop() {
 }
 
 void Select_Port() {
+	Select_Port_Display();
+	while (1) {
+		int key = _getch();
+   		printf("%d", key);
+	    if (key == 49) {system("cls");Select_Status(1);break;} //1
+   		if (key == 50) {system("cls");Select_Status(2);break;} //2
+   		if (key == 51) {system("cls");Select_Status(3);break;} //3
+   		if (key == 52) {system("cls");Select_Status(4);break;} //4
+   		if (key == 53) {system("cls");Select_Status(5);break;} //5
+   		if (key == 54) {system("cls");Select_Status(6);break;} //6
+   		if (key == 55) {system("cls");Select_Status(7);break;} //7
+   		if (key == 56) {system("cls");Select_Status(8);break;} //8
+   		if (key == 56) {system("cls");Loop();break;} //8
+	}
+}
+
+void Select_Status(int num) {
+	num  = num - 1;
+	if (Disp_Nums[num] != 'N')
+		Slecte_Num = num;
+		Port_Status_Trasfrom_to_Char();
+	Loop();
 }
 
 void Control_Status(int Num) {
 	int Pre_Num = 0, i , j;
 	Num = Num - 1;
+	if (Disp_Nums[Num] == Disp_Nums[Slecte_Num]) {
+		Slecte_Num = 10;
+	}
 	if (Disp_Nums[Num] != 'N') {
 		Pre_Num = Disp_Nums[Num] - 48;
 	    Disp_Nums[Num] = 'N';
@@ -90,8 +116,16 @@ void Port_Status_Trasfrom_to_Char() {
 		   Highst_Num_Order = i;
         }
 	}
-	if (Highst_Num != 0 && Disp_Nums[Highst_Num_Order] != 'N') {
+	if (Highst_Num != 0 && Disp_Nums[Highst_Num_Order] != 'N' && Slecte_Num == 10) {
 		Disp_Port[Highst_Num_Order] = '@';
+	}
+	if (Slecte_Num != 10) {
+		Disp_Port[Slecte_Num] = '@';
+	}
+	if (Disp_Nums[0] == 'N' && Disp_Nums[1] == 'N' && Disp_Nums[2] == 'N' && 
+	    Disp_Nums[3] == 'N' && Disp_Nums[4] == 'N' && Disp_Nums[5] == 'N' && 
+		Disp_Nums[6] == 'N' && Disp_Nums[7] == 'N')  {
+		Disp_Port[0] = '@';
 	}
 }
 
@@ -117,7 +151,7 @@ void exit_fn() {
 
 void Help_page() {
 	printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á\n");
-	printf("¡á                                                                                                                  ¡á\n");
+	printf("¡á   WIP                                                                                                            ¡á\n");
 	printf("¡á                                                                                                                  ¡á\n");
 	printf("¡á                                                                                                                  ¡á\n");
 	printf("¡á                                                                                                                  ¡á\n");
@@ -151,7 +185,7 @@ void Select_Port_Display() {
     printf("¡á                                                                                                                  ¡á\n");
     printf("¡á                                                                                                                  ¡á\n");
     printf("¡á                                                                                                                  ¡á\n");
-    printf("¡á    Enter the number you want to display...                                                        Ver : %s    ¡á\n", Ver);
+    printf("¡á    Enter the number you want to display... , Return : Enter                                       Ver : %s    ¡á\n", Ver);
     printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á\n");
 }
 
@@ -169,7 +203,7 @@ void Loop_Hdmi_State() {
     printf("¡á                                                                                                                  ¡á\n");
     printf("¡á                                                                                                                  ¡á\n");
     printf("¡á                                                                                                                  ¡á\n");
-    printf("¡á    Help : 9 | Exit : 0                                                                            Ver : %s    ¡á\n", Ver);
+    printf("¡á    Selection mode : Tap | Help : 9 | Exit : 0                                                     Ver : %s    ¡á\n", Ver);
     printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á\n");
 }
 
