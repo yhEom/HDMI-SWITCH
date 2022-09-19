@@ -18,7 +18,7 @@ void remove_scrollbar();
 void Port_Status_Trasfrom_to_Char();
 void Loop();
 
-char Ver[] = "B.1.2";
+char Ver[] = "B.1.3";
 char State_Data[9];
 char Disp_Nums[9] = {"NNNNNNNN"};
 char State_Data_AF[9] = {"NNNNNNNN"};
@@ -66,15 +66,13 @@ void exit_fn() {
 void Port_Status_Trasfrom_to_Char() { 
 	int i;
 	for (i = 0; i < 8; i++) {
-		printf("%c", Disp_Nums[i]);
- 		if (Disp_Nums == 'N') {Disp_Port[i] = '0';}
+ 		if (Disp_Nums[i] == 'N') {Disp_Port[i] = 'X';}
 	    else {Disp_Port[i] = 'O';}
 	}
 }
 
 void Help_page() {
 	printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á\n");
-	printf("¡á                                                                                                                  ¡á\n");
 	printf("¡á                                                                                                                  ¡á\n");
 	printf("¡á                                                                                                                  ¡á\n");
 	printf("¡á                                                                                                                  ¡á\n");
@@ -109,7 +107,6 @@ void Loop_Hdmi_State() {
     printf("¡á                                                                                                                  ¡á\n");
     printf("¡á                                                                                                                  ¡á\n");
     printf("¡á                                                                                                                  ¡á\n");
-    printf("¡á                                                                                                                  ¡á\n");
     printf("¡á    Help : 9 | Exit : 0                                                                            Ver : %s    ¡á\n", Ver);
     printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á\n");
 }
@@ -127,7 +124,7 @@ void Starting_Logo_Disp() {
     printf("¡á ¡á    ¡á ¡á    ¡á   ¡á      ¡á     ¡á          ¡á      ¡á ¡á  ¡á  ¡á     ¡á         ¡á     ¡á      ¡á ¡á      ¡á ¡á\n");
     printf("¡á ¡á    ¡á ¡á¡á¡á     ¡á      ¡á ¡á¡á¡á¡á¡á        ¡á¡á¡á     ¡á  ¡á   ¡á¡á¡á¡á¡á     ¡á       ¡á¡á¡á   ¡á      ¡á ¡á\n");
     printf("¡á                                                                                                                  ¡á\n");
-    printf("¡á Press Enter...                                                                                    Ver : %s    ¡á\n", Ver);
+    printf("¡á    Press Enter...                                                                                 Ver : %s    ¡á\n", Ver);
     printf("¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á\n");
     while (1) {
         int key = _getch();
